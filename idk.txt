@@ -1,0 +1,540 @@
+local localplayer = game:GetService("Players")
+local player1 = game.Players.LocalPlayer
+local playercharacter = player1.Character
+local camera = game.Workspace.CurrentCamera
+local useTeamCheck = true
+local UIS = game:GetService("UserInputService")
+
+
+	local playercharacter = player1.Character or player1.CharacterAdded:Wait()
+	
+
+	print(player1.Name)
+
+	local screengui = Instance.new("ScreenGui", player1.PlayerGui)
+	
+	local Frame = Instance.new("Frame", screengui)
+	screengui.Frame.Size = UDim2.new(0,400,0,450)
+	screengui.Frame.Position = UDim2.new(0,500,0,200)
+	screengui.Frame.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+	screengui.ResetOnSpawn = false
+
+
+	--walkspeed set
+	local textbox = Instance.new("TextBox", Frame)
+	textbox.Name = "walkspeedtextbox"
+	textbox.BackgroundColor3 = Color3.fromRGB(127, 127, 127)
+	textbox.Position = UDim2.new(0,240,0,50)
+	textbox.Size = UDim2.new(0,150,0,50)
+	textbox.PlaceholderText = "walkspeed set"
+
+	local function allowOnlyNumbers()
+		textbox.Text = string.gsub(textbox.Text, "%D", "")
+	end
+
+	textbox:GetPropertyChangedSignal("Text"):Connect(allowOnlyNumbers)
+
+	Instance.new("TextButton", Frame)	
+	screengui.Frame.TextButton.Name = "button"
+	local button = screengui.Frame.button
+	button.BackgroundTransparency = 0
+	button.BackgroundColor3 = Color3.fromRGB(135, 135, 135)
+	button.Size = UDim2.new(0,200,0,70)
+	button.Position = UDim2.new(0,35,0,50)
+	button.Text = "speed"
+
+	screengui.Frame.button.MouseButton1Up:Connect(function()
+		playercharacter.Humanoid.WalkSpeed = textbox.Text
+		print(playercharacter.Humanoid.WalkSpeed)
+	end)
+
+	Instance.new("TextButton", Frame)
+	screengui.Frame.TextButton.Name = "button1"
+	local button1 = screengui.Frame.button1
+	button1.BackgroundTransparency = 0
+	button1.BackgroundColor3 = Color3.fromRGB(135, 135, 135)
+	button1.Size = UDim2.new(0,200,0,70)
+	button1.Position = UDim2.new(0,35,0,150)
+	button1.Text = "ESP"
+
+	screengui.Frame.button1.MouseButton1Up:Connect(function()
+		--	local highlight = Instance.new("Highlight")
+		--	highlight.Name = "Highlight"
+
+		--	local players = game:GetService("Players"):GetChildren()
+		--	for i, v in pairs(players) do
+		--		repeat wait() until v.Character
+		--		local highlightclone =  highlight:Clone()
+		--		highlightclone.Adornee = v.Character
+		--		highlightclone.Parent = v.Character:FindFirstChild("HumanoidRootPart")
+		--	end
+
+		--	repeat wait() until players.Character
+		--	highlight.Adornee = players.Character
+		--	highlight.Parent = players.Character:FindFirstChild("HumanoidRootPart")
+
+		--	game.Players.PlayerAdded:Connect(function(player)
+		--		repeat wait() until player.Character
+		--		local highlightclone = highlight:Clone()
+		--		highlightclone.Adornee = player.Character
+		--		highlightclone.Parent = player.Character:FindFirstChild("HumanoidRootPart")
+		--	end)
+
+
+		local box = Instance.new("BillboardGui", player1.PlayerGui)
+		local boxclone = box:Clone()
+		local Players = game:GetService("Players")
+		local RunService = game:GetService("RunService")
+		local Highlight = Instance.new("Highlight")
+		Highlight.Name = "Highlight"
+		local function idk()
+			for i,player in pairs(Players:GetChildren()) do
+				repeat wait() until player.Character
+				if not player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BillboardGui") then
+					if player ~= player1  then
+						--local HighlightClone = Highlight:Clone()
+						--HighlightClone.Adornee = player.Character
+						--HighlightClone.Parent = player.Character:FindFirstChild("HumanoidRootPart")
+						--HighlightClone.DepthMode = Enum .HighlightDepthMode.AlwaysOnTop
+						--HighlightClone.Name = "Highlight"
+						Instance.new("BillboardGui", player.Character:FindFirstChild("HumanoidRootPart"))
+						box = player.Character.HumanoidRootPart.BillboardGui
+						box.Parent = player.Character:FindFirstChild("HumanoidRootPart")
+						box.Adornee = player.Character:FindFirstChild("HumanoidRootPart")
+						box.Size = UDim2.new(6,0 ,8,0)
+						box.Enabled = true
+						box.AlwaysOnTop = true
+
+						local boxframe = Instance.new("Frame", player.Character.HumanoidRootPart.BillboardGui)
+						boxframe.Size = UDim2.new(1, 1, 1,1)
+						boxframe.BackgroundColor3 = Color3.fromRGB(16, 19, 144)
+						boxframe.BorderSizePixel = 1
+						boxframe.BackgroundTransparency = 0.6
+
+						local boxname = Instance.new("TextLabel", player.Character.HumanoidRootPart.BillboardGui.Frame)
+						boxname.Text = player.Name
+						boxname.Size = UDim2.new(1, 0, 0,1)
+						boxname.BackgroundTransparency = 1
+						--local boxframe2 = Instance.new("Frame", player.Character.HumanoidRootPart.BillboardGui)
+						--boxframe2.Size = UDim2.new(0, 1, 1,0)
+						--boxframe2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+						--boxframe2.BorderSizePixel = 1
+						--boxframe2.BackgroundTransparency = 0
+
+						---- Create Attachments for the Beam
+						--local localAttachment = Instance.new("Attachment", playercharacter:FindFirstChild("HumanoidRootPart"))
+						--local playerAttachment = Instance.new("Attachment", camera)
+
+						---- Create the Beam
+						--local beam = Instance.new("Beam")
+						--beam.Attachment0 = localAttachment
+						--beam.Attachment1 = playerAttachment
+						--beam.FaceCamera = true  -- Make sure the beam faces the camera for visual clarity
+						--beam.Color = ColorSequence.new(Color3.new(1, 0, 0))  -- Red color
+						--beam.Width0 = 0.1  -- Start width
+						--beam.Width1 = 0.1  -- End width
+						--beam.Parent = playercharacter.HumanoidRootPart  -- Parent the beam to the local playe
+					end
+
+
+
+
+
+
+				end
+			end
+		end    
+		RunService.Heartbeat:Connect(function()
+			idk()
+		end)    
+
+	end)
+
+	Instance.new("TextButton", Frame)
+	screengui.Frame.TextButton.Name = "button2"
+	local button2 = screengui.Frame.button2
+	button2.BackgroundTransparency = 0
+	button2.BackgroundColor3 = Color3.fromRGB(135, 135, 135)
+	button2.Size = UDim2.new(0,200,0,70)
+	button2.Position = UDim2.new(0,35,0,250)
+	button2.Text = "aimbot :off"
+	
+	
+	screengui.Frame.button2.MouseButton1Up:Connect(function()
+	
+
+		screengui.Frame.button2.MouseButton1Up:Connect(function()
+
+			-- Gui to Lua
+			-- Version: 3.2
+
+			-- Instances:
+
+			local ScreenGui = Instance.new("ScreenGui")
+			local Aimbot = Instance.new("Frame")
+			local Title = Instance.new("TextLabel")
+			local Toggle = Instance.new("TextButton")
+			local TeamCheckToggle = Instance.new("TextButton") -- Added for Team Check
+
+			--Properties:
+
+			ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+			ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+			Aimbot.Name = "Aimbot"
+			Aimbot.Parent = ScreenGui
+			Aimbot.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Aimbot.Position = UDim2.new(0.0599842146, 0, 0.358722359, 0)
+			Aimbot.Size = UDim2.new(0, 126, 0, 152)
+
+			Title.Name = "Title"
+			Title.Parent = Aimbot
+			Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Title.Size = UDim2.new(0, 126, 0, 50)
+			Title.Font = Enum.Font.SourceSans
+			Title.Text = "Beni bot"
+			Title.TextColor3 = Color3.fromRGB(0, 0, 0)
+			Title.TextSize = 20.000
+
+			Toggle.Name = "Toggle"
+			Toggle.Parent = Aimbot
+			Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			Toggle.BorderSizePixel = 0
+			Toggle.Position = UDim2.new(0, 0, 0.473684222, 0)
+			Toggle.Size = UDim2.new(0, 126, 0, 50)
+			Toggle.Font = Enum.Font.SourceSans
+			Toggle.Text = "Off"
+			Toggle.TextColor3 = Color3.fromRGB(255, 0, 0)
+			Toggle.TextSize = 40.000
+
+			TeamCheckToggle.Name = "TeamCheckToggle" -- Added a button for Team Check
+			TeamCheckToggle.Parent = Aimbot
+			TeamCheckToggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+			TeamCheckToggle.BorderSizePixel = 0
+			TeamCheckToggle.Position = UDim2.new(0, 0, 0.8, 0) -- Position below the aimbot toggle
+			TeamCheckToggle.Size = UDim2.new(0, 126, 0, 50)
+			TeamCheckToggle.Font = Enum.Font.SourceSans
+			TeamCheckToggle.Text = "Team Check: Off"
+			TeamCheckToggle.TextColor3 = Color3.fromRGB(255, 0, 0)
+			TeamCheckToggle.TextSize = 20.000
+
+			-- Scripts:
+
+			local function AimbotScript() -- Toggle.LocalScript 
+				local script = Instance.new('LocalScript', Toggle)
+
+				_G.aimbot = false
+				_G.teamCheck = false -- TeamCheck variable
+
+				local camera = game.Workspace.CurrentCamera
+				local localplayer = game:GetService("Players").LocalPlayer
+
+				-- Aimbot Toggle Script
+				script.Parent.MouseButton1Click:Connect(function()
+					if _G.aimbot == false then
+						_G.aimbot = true
+						script.Parent.TextColor3 = Color3.fromRGB(0, 170, 0)
+						script.Parent.Text = "On"
+
+						-- Function to find the closest player, now with optional team check
+						function closestplayer()
+							local dist = math.huge
+							local target = nil
+							for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+								if v ~= localplayer then
+									if v.Character and v.Character:FindFirstChild("Head") and _G.aimbot and v.Character.Humanoid.Health > 0 then
+										-- Check for team condition
+										if not _G.teamCheck or (v.Team ~= localplayer.Team) then
+											local magnitude = (v.Character.Head.Position - localplayer.Character.Head.Position).magnitude
+											if magnitude < dist then
+												dist = magnitude
+												target = v
+											end
+										end
+									end
+								end
+							end
+							return target
+						end
+
+					else
+						_G.aimbot = false
+						script.Parent.TextColor3 = Color3.fromRGB(255, 0, 0)
+						script.Parent.Text = "Off"
+					end
+				end)
+
+				local settings = {
+					keybind = Enum.UserInputType.MouseButton2
+				}
+
+				local UIS = game:GetService("UserInputService")
+				local aiming = false
+
+				-- Toggle aiming on right-click
+				UIS.InputBegan:Connect(function(inp)
+					if inp.UserInputType == settings.keybind then
+						aiming = true
+					end
+				end)
+
+				UIS.InputEnded:Connect(function(inp)
+					if inp.UserInputType == settings.keybind then
+						aiming = false
+					end
+				end)
+
+				-- Aimbot aiming logic
+				game:GetService("RunService").RenderStepped:Connect(function()
+					if aiming then
+						local target = closestplayer()
+						if target and target.Character and target.Character:FindFirstChild("Head") then
+							camera.CFrame = CFrame.new(camera.CFrame.Position, target.Character.Head.Position)
+						end
+					end
+				end)
+			end
+			coroutine.wrap(AimbotScript)()
+
+			-- Team Check Toggle Script
+			local function TeamCheckScript() -- TeamCheckToggle.LocalScript 
+				local script = Instance.new('LocalScript', TeamCheckToggle)
+
+				-- Toggle Team Check on button click
+				script.Parent.MouseButton1Click:Connect(function()
+					if _G.teamCheck == false then
+						_G.teamCheck = true
+						script.Parent.TextColor3 = Color3.fromRGB(0, 170, 0)
+						script.Parent.Text = "Team Check: On"
+					else
+						_G.teamCheck = false
+						script.Parent.TextColor3 = Color3.fromRGB(255, 0, 0)
+						script.Parent.Text = "Team Check: Off"
+					end
+				end)
+			end
+			coroutine.wrap(TeamCheckScript)()
+		
+
+		
+		
+			local UserInputService = game:GetService("UserInputService")
+
+			local gui = ScreenGui.Aimbot
+
+			local dragging
+			local dragInput
+			local dragStart
+			local startPos
+
+			local function update(input)
+				local delta = input.Position - dragStart
+				gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+			end
+
+			gui.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+					dragging = true
+					dragStart = input.Position
+					startPos = gui.Position
+
+					input.Changed:Connect(function()
+						if input.UserInputState == Enum.UserInputState.End then
+							dragging = false
+						end
+					end)
+				end
+			end)
+
+			gui.InputChanged:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+					dragInput = input
+				end
+			end)
+
+			UserInputService.InputChanged:Connect(function(input)
+				if input == dragInput and dragging then
+					update(input)
+				end	
+			end)	
+		end)
+	end)					
+
+
+
+
+
+
+
+
+
+
+
+
+
+	local button3 = Instance.new("TextButton", Frame)
+	button3.Name = "button3"
+	button3.BackgroundTransparency = 0
+	button3.BackgroundColor3 = Color3.fromRGB(135, 135, 135)
+	button3.Size = UDim2.new(0, 200, 0, 70)
+	button3.Position = UDim2.new(0, 35, 0, 350)
+	button3.Text = "tp to player"
+
+
+	local textbox1 = Instance.new("TextBox", Frame)
+	textbox1.Name = "tptextbox"
+	textbox1.BackgroundColor3 = Color3.fromRGB(127, 127, 127)
+	textbox1.Position = UDim2.new(0, 240, 0, 350)
+	textbox1.Size = UDim2.new(0, 150, 0, 50)
+	textbox1.PlaceholderText = "teleport to player"
+
+
+	button3.MouseButton1Up:Connect(function()
+		local targetPlayerName = textbox1.Text
+		local Players = game:GetService("Players")
+		local targetPlayer = Players:FindFirstChild(targetPlayerName)
+		if targetPlayer and targetPlayer.Character then
+			player1.Character:SetPrimaryPartCFrame(targetPlayer.Character:GetPrimaryPartCFrame())
+		else
+			print("die bestaat niet dikzak")
+		end
+	end)
+
+	local button4 = Instance.new("TextButton", Frame)
+	button4.Name = "button4"
+	button4.BackgroundTransparency = 0
+	button4.BackgroundColor3 = Color3.fromRGB(135, 135, 135)
+	button4.Size = UDim2.new(0, 150, 0, 70)
+	button4.Position = UDim2.new(0,235,0,150)
+	button4.Text = "FLY :off"
+	enabled = false
+	InfiniteJumpEnabled = true
+	button4.MouseButton1Up:Connect(function()
+		if enabled == true then
+			enabled = false
+			button4.Text = "FLY :off"
+			InfiniteJumpEnabled = false
+		elseif enabled == false then
+			button4.Text = "FLY :on"
+			enabled = true
+			print("h")
+			InfiniteJumpEnabled = true
+			game:GetService("UserInputService").JumpRequest:connect(function()
+				if InfiniteJumpEnabled then
+					game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+				end
+			end)
+		end
+
+		
+	end)
+
+
+	local button5 = Instance.new("TextButton", Frame)
+	button5.Name = "button5"
+	button5.BackgroundTransparency = 0
+	button5.BackgroundColor3 = Color3.fromRGB(135, 135, 135)
+	button5.Size = UDim2.new(0, 150, 0, 70)
+	button5.Position = UDim2.new(0,235,0,250)
+	button5.Text = "Noclip :off"
+	noclip = false
+	
+	button5.MouseButton1Up:Connect(function()
+		local player = game:GetService("Players")
+		local localplayer = game.Players.LocalPlayer
+		if noclip == true then
+			noclip = false
+			button5.Text = "noclip :off"
+			localplayer.Character.HumanoidRootPart.CanCollide = true
+			localplayer.Character.Torso.CanCollide = true
+			localplayer.Character.Head.CanCollide = true
+		elseif noclip == false then
+			noclip = true
+			button5.Text = "noclip :on"
+			
+			while wait() do
+				if noclip == true then
+					if localplayer.Character:FindFirstChild("Torso") then
+						localplayer.Character.HumanoidRootPart.CanCollide = false
+						localplayer.Character.Torso.CanCollide = false
+						localplayer.Character.Head.CanCollide = false
+					else
+						localplayer.Character.LowerTorso.CanCollide = false
+						localplayer.Character.UpperTorso.CanCollide = false
+						localplayer.Character.HumanoidRootPart.CanCollide = false
+						end
+					end
+					
+				end
+				
+			end
+
+	end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	local UserInputService = game:GetService("UserInputService")
+
+	local gui = screengui.Frame
+
+	local dragging
+	local dragInput
+	local dragStart
+	local startPos
+
+	local function update(input)
+		local delta = input.Position - dragStart
+		gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+
+	gui.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+			dragging = true
+			dragStart = input.Position
+			startPos = gui.Position
+
+			input.Changed:Connect(function()
+				if input.UserInputState == Enum.UserInputState.End then
+					dragging = false
+				end
+			end)
+		end
+	end)
+
+	gui.InputChanged:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+			dragInput = input
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input)
+		if input == dragInput and dragging then
+			update(input)
+		end	
+	end)	
+
+
+
+
+
+
+
+
+
+
+
+
+
