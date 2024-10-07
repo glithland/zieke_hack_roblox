@@ -4,6 +4,7 @@ local playercharacter = player1.Character
 local camera = game.Workspace.CurrentCamera
 local useTeamCheck = true
 local UIS = game:GetService("UserInputService")
+workspace.FallenPartsDestroyHeight=0/0
 
 
 	local playercharacter = player1.Character or player1.CharacterAdded:Wait()
